@@ -19,4 +19,56 @@ window.RZ_INTAKE={
 };
 </script>
 <script src="intake.js"></script>
+<!-- RENZ · INTAKE COMPLETION WEBHOOK (from Frank, 12 Oct 2026)
+     Watches for the final "scan" section post from intake.js and tells the CRM.
+     Wraps window.fetch only; never changes intake behaviour; failures are swallowed. -->
+<script>
+(function () {
+  var HOOK = 'https://services.leadconnectorhq.com/hooks/qfdtcX0EE0FhMFVxCLPq/webhook-trigger/5d355d7c-e4d4-48c8-ad01-7eef74929733';
+  var FINAL_SECTION = 'scan';
+  var email = '';
+  var fired = false;
+
+  try { email = sessionStorage.getItem('rz_intake_email') || ''; } catch (e) {}
+
+  var realFetch = window.fetch;
+  window.fetch = function (input, init) {
+    var body = null;
+    try { body = (init && init.body) || (input && input.body) || null; } catch (e) {}
+
+    var data = null;
+    if (typeof body === 'string' && body.charAt(0) === '{') {
+      try { data = JSON.parse(body); } catch (e) {}
+    }
+
+    if (data) {
+      if (data.action === 'login' && data.email) {
+        email = String(data.email).trim();
+        try { sessionStorage.setItem('rz_intake_email', email); } catch (e) {}
+      }
+
+      if (!fired && data.action === 'section' && data.section === FINAL_SECTION) {
+        fired = true;
+        try {
+          var token = data.token || '';
+          realFetch(HOOK, {
+            method: 'POST',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              event: 'intake_complete',
+              email: email,
+              contact_id: token ? token.slice(0, token.lastIndexOf('.')) : '',
+              completed_at: new Date().toISOString(),
+              source: 'intake.lorenzosegor.com'
+            })
+          })['catch'](function () {});
+        } catch (e) {}
+      }
+    }
+
+    return realFetch.apply(this, arguments);
+  };
+})();
+</script>
 </body></html>
