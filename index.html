@@ -19,17 +19,17 @@ window.RZ_INTAKE={
 };
 </script>
 <script src="intake.js"></script>
-<!-- RENZ · INTAKE COMPLETION WEBHOOK (from Frank, 12 Oct 2026)
+<!-- RENZ · INTAKE COMPLETION WEBHOOK (v2 from Frank, 13 Oct 2026)
      Watches for the final "scan" section post from intake.js and tells the CRM.
      Wraps window.fetch only; never changes intake behaviour; failures are swallowed. -->
 <script>
 (function () {
-  var HOOK = 'https://services.leadconnectorhq.com/hooks/qfdtcX0EE0FhMFVxCLPq/webhook-trigger/5d355d7c-e4d4-48c8-ad01-7eef74929733';
+  var HOOK = 'https://services.leadconnectorhq.com/hooks/qfdtcX0EE0FhMFVxCLPq/webhook-trigger/5f35986a-356e-4f0d-8c2f-9302dbc86a78';
   var FINAL_SECTION = 'scan';
   var email = '';
   var fired = false;
 
-  try { email = sessionStorage.getItem('rz_intake_email') || ''; } catch (e) {}
+  try { email = localStorage.getItem('rz_intake_email') || ''; } catch (e) {}
 
   var realFetch = window.fetch;
   window.fetch = function (input, init) {
@@ -44,7 +44,7 @@ window.RZ_INTAKE={
     if (data) {
       if (data.action === 'login' && data.email) {
         email = String(data.email).trim();
-        try { sessionStorage.setItem('rz_intake_email', email); } catch (e) {}
+        try { localStorage.setItem('rz_intake_email', email); } catch (e) {}
       }
 
       if (!fired && data.action === 'section' && data.section === FINAL_SECTION) {
