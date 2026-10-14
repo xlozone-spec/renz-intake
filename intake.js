@@ -564,7 +564,7 @@ function render(){var sc=SCR[st.i],h='';
     h=shell('rz-qs rz-outrules',sc,thumb(sc)+'<div class="rz-qn">Question '+QO.n+'</div><h2 class="rz-ql">'+two(QO.title)+'</h2><p class="rz-qh">'+esc(QO.help)+'</p>'+
       '<div class="rz-rules">'+OUT_RULES.map(function(r){return '<div><span>'+esc(r[0])+'</span><p>'+esc(r[1])+'</p></div>';}).join('')+'</div>'+
       '<div class="rz-disc"><b>No photo for one of these?</b>Send the closest thing you have. Any photo of you in a full outfit is fine.</div>'+
-      '<div class="rz-body"><button class="rz-t'+(A('photo_consent')?' on':'')+'" data-tick="photo_consent"><span class="rz-bx">'+TICK+'</span><span><b>I’m happy for you to use my photos for my style guide.</b> They’re only used for my guide and my calls. They stay private and are never shown publicly without my OK. They’re deleted a year after we last work together, or sooner if I ask.</span></button></div>',
+      '<div class="rz-body"><button class="rz-t'+(A('photo_consent')?' on':'')+'" data-tick="photo_consent"><span class="rz-bx">'+TICK+'</span><span><b>I’m happy for you to use my photos for my style guide.</b> They’re only used for my guide and my calls. They stay private and are never shown publicly without my OK. They’re deleted a year after we last work together. Your photos and scan are handled under UK GDPR, and we’ll delete everything on request.</span></button></div>',
       nav('Continue'),art(STEPS[sc.s].img,'',false,stepTag(sc.s)));
   } else if(sc.k==='daylight'){
     h=shell('rz-qs',sc,thumb(sc)+'<div class="rz-qn">Before you start</div><h2 class="rz-ql">These need natural daylight.</h2>'+
@@ -699,7 +699,7 @@ function sectionAnswers(id){var o={},c=cur();
     put('build_comments',A('qbuild'));}
   if(id==='budget'){var bands=['Under '+c+'50',c+'50-100',c+'100-250',c+'250-500',c+'500+','Don’t buy these'];
     put('q21_spend_per_piece',[0,1,2,3,4,5,6,7].map(function(i){return Q['q21_'+i].title.replace('What do you usually spend on ','').replace('?','')+': '+A('q21_'+i);}).join(' | '));put('q22_total_budget',A('q22'));}
-  if(id==='closet'){put('photo_consent',A('photo_consent')?'yes':'no');put('photo_consent_at',A('photo_consent_at'));put('photo_consent_text','I’m happy for you to use my photos for my style guide. They’re only used for my guide and my calls. They stay private and are never shown publicly without my OK. They’re deleted a year after we last work together, or sooner if I ask.');put('keep_buying_not_wearing',A('qkeep'));
+  if(id==='closet'){put('photo_consent',A('photo_consent')?'yes':'no');put('photo_consent_at',A('photo_consent_at'));put('photo_consent_text','I’m happy for you to use my photos for my style guide. They’re only used for my guide and my calls. They stay private and are never shown publicly without my OK. They’re deleted a year after we last work together. Your photos and scan are handled under UK GDPR, and we’ll delete everything on request.');put('keep_buying_not_wearing',A('qkeep'));
     // outfit photos: the file id from the upload (live), 'uploaded' in test mode, '' if skipped
     OUTFITS.forEach(function(x){put(x.k,hasUp(x.k)?((st.up[x.k]&&st.up[x.k].id)||'uploaded'):'');});
     put('outfit_off_note',A('outfit_off_note'));}
