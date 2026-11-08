@@ -225,7 +225,7 @@ var Q={
  q22:{n:20,t:'single',title:'What would you invest in getting your closet right, once and for all?',optsFn:function(c){return [c+'1,500-2,000',c+'2,000-5,000',c+'5,000-10,000',c+'10,000+'];}},
  q23:{n:20,t:'swatch',title:'Which colours make up most of your closet?',help:'Tick all that apply.',opts:COL_OWN,other:true},
  q24:{n:21,t:'closet10',title:'Your 10 most-worn pieces.',help:'Not your favourites. The ones you actually reach for most. One photo each, then tell me how each one fits you.',photos:1},
- qkeep:{n:21,t:'text',long:true,short:true,optional:true,title:'What do you keep buying that you end up not wearing?',help:'A type of piece, a colour, a cut. Whatever keeps happening.',ph:'e.g. Patterned shirts. They look good in the shop, then sit in my wardrobe.'},
+ qkeep:{n:21,t:'text',long:true,short:true,optional:true,title:'What do you keep buying that you end up not wearing?',help:'A type of piece, a colour, a cut. Whatever keeps happening.',ph:'e.g. Patterned shirts. They look good in the shop, then sit in my closet.'},
  qout:{n:22,t:'outfits',title:'Photos of you, in your outfits.',help:'Real photos of you wearing a full outfit, from the last year. Not your best looks, just what you actually wear. This is what I work on.',photos:1},
  q26:{n:23,t:'face',title:'Your face, three ways, plus your eyes.',help:'Same spot, same light, one after the other. Only the first one needs the paper. Like your outfit photos, these stay private and are only used for your guide.',slots:['Straight on','Turned left','Turned right','Eyes, close up'],photos:2},
 };
