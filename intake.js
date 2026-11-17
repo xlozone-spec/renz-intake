@@ -415,9 +415,9 @@ function qHead(q,sc,extra,title,help){var num='Question '+q.n+(extra?' · '+extr
   return '<div class="rz-qn">'+num+(q.optional?' · <em>Optional</em>':'')+'</div><h2 class="rz-ql">'+two(title||q.title)+'</h2>'+(help?'<p class="rz-qh">'+esc(help)+'</p>':'');}
 /* two-tone title: first clause in ink, the rest in tone */
 function scanCompare(){var ex=CFG.exampleMap||{},b=CFG.exampleBase||'img/examples/';
-  var rows=[['scan-under',1,'Boxers only','Every line sits on his body.'],['scan-fitted',0,'Fitted tee and shorts','The tee bunches at the waistband. The scan can’t see his natural waist, so it reads it higher, near his chest.'],['scan-loose',0,'Joggers and a jumper','The waistband and baggy legs hide his shape. Nothing here is him.']];
+  var rows=[['scan-under',1,'Fitted boxers only','Every line sits on his body.'],['scan-fitted',0,'Tee and shorts','The tee bunches at the waistband. The scan can’t see his natural waist, so it reads it higher, near his chest.'],['scan-loose',0,'Joggers and a jumper','The waistband and baggy legs hide his shape. Nothing here is him.']];
   return '<div class="rz-sx">'+rows.map(function(r){var u=ex[r[0]]||(b+r[0]+'.jpg');return '<div class="rz-sxr"><img src="'+u+'" alt=""><div><b class="'+(r[1]?'ok':'no')+'"><i>'+(r[1]?'✓':'✕')+'</i>'+r[2]+'</b><p>'+r[3]+'</p></div></div>';}).join('')+
-   '<p class="rz-sxf">Your proportions are built on this scan. So scan in boxers only.</p></div>';}
+   '<p class="rz-sxf">Your proportions are built on this scan. So scan in fitted boxers only.</p></div>';}
 function two(t){var m=/^(.+?[,.])\s+(.+)$/.exec(t);return m?esc(m[1])+' <span>'+esc(m[2])+'</span>':esc(t);}
 
 function renderQ(sc){var q=Q[sc.q],k=sc.q,h='',extra='';
@@ -583,11 +583,11 @@ function render(){var sc=SCR[st.i],h='';
       '<div class="rz-body"><div class="rz-rules" style="grid-template-columns:1fr">'+PV.map(function(r){return '<div><span>'+esc(r[0])+'</span><p>'+r[1]+'</p></div>';}).join('')+'</div></div>',
       nav('Continue'),art('scan','Your scan',false,stepTag(sc.s)));
   } else if(sc.k==='scancompare'){
-    h=shell('rz-qs',sc,thumb(sc)+'<div class="rz-qn">Your scan</div><h2 class="rz-ql">'+two('Why boxers only.')+'</h2><p class="rz-sub">Three real scans. Clothes move the lines your proportions are built on.</p>'+
+    h=shell('rz-qs',sc,thumb(sc)+'<div class="rz-qn">Your scan</div><h2 class="rz-ql">'+two('Why fitted boxers only.')+'</h2><p class="rz-sub">Three real scans. Clothes move the lines your proportions are built on.</p>'+
       scanCompare(),nav('I understand'),art('scan','Your scan',false,stepTag(sc.s)));
   } else if(sc.k==='scanticks'){
     var TK=[['t_name','<b>Use the same name and email you paid with.</b> This is how I match your scan to you.'],
-      ['t_clothes','<b>Scan in boxers only.</b> No t-shirt, no shorts, nothing else. If the scan app says fitted clothes are fine, ignore it. For your style guide, it’s boxers only.'],
+      ['t_clothes','<b>Scan in fitted boxers only.</b> Briefs or trunks that sit close to you. No loose boxer shorts, they hang off you and throw out your hips and legs. No t-shirt, nothing else. If the scan app says gym clothes are fine, ignore it.'],
       ['t_steps','<b>Follow the scan’s own steps exactly.</b>']];
     h=shell('rz-qs',sc,thumb(sc)+'<div class="rz-qn">Before you scan</div><h2 class="rz-ql">'+two('Last step. Then it’s my turn.')+'</h2><p class="rz-qh">Tick each one to confirm.</p>'+
       '<div class="rz-body"><div class="rz-ticks">'+TK.map(function(t){return '<button class="rz-t'+(A(t[0])?' on':'')+'" data-tick="'+t[0]+'"><span class="rz-bx">'+TICK+'</span><span>'+t[1]+'</span></button>';}).join('')+'</div>'+
